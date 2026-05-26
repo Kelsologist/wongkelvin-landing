@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Wong;Kelvin;;;
+FN:Kelvin Wong
+ORG:IMI Corporation Pte Ltd
+TITLE:Engineering Solutions
+TEL;TYPE=CELL:+6591234567
+EMAIL:kelvin@imi.com.sg
+URL:https://wongkelvin.com
+ADR;TYPE=WORK:;;1 Kaki Bukit Road 1 #02-01 Enterprise One;Singapore;;415934;Singapore
+END:VCARD
