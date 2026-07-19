@@ -42,6 +42,9 @@
 .min-h-screen {
   min-height: 100vh;
 }
+.w-auto {
+  width: auto;
+}
 .w-full {
   width: 100%;
 }
@@ -56,6 +59,9 @@
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -101,8 +107,24 @@
   border-bottom-style: var(--tw-border-style);
   border-bottom-width: 1px;
 }
+.border-l {
+  border-left-style: var(--tw-border-style);
+  border-left-width: 1px;
+}
+.border-\[\#0A66C2\]\/20 {
+  border-color: color-mix(in oklab, #0A66C2 20%, transparent);
+}
 .border-\[\#00BFFF\]\/20 {
   border-color: color-mix(in oklab, #00BFFF 20%, transparent);
+}
+.border-\[\#1E90FF\]\/30 {
+  border-color: color-mix(in oklab, #1E90FF 30%, transparent);
+}
+.border-\[\#09B83E\]\/20 {
+  border-color: color-mix(in oklab, #09B83E 20%, transparent);
+}
+.bg-\[\#0A66C2\]\/10 {
+  background-color: color-mix(in oklab, #0A66C2 10%, transparent);
 }
 .bg-\[\#00BFFF\] {
   background-color: #00BFFF;
@@ -110,11 +132,20 @@
 .bg-\[\#00BFFF\]\/5 {
   background-color: color-mix(in oklab, #00BFFF 5%, transparent);
 }
+.bg-\[\#1E90FF\]\/10 {
+  background-color: color-mix(in oklab, #1E90FF 10%, transparent);
+}
+.bg-\[\#09B83E\]\/10 {
+  background-color: color-mix(in oklab, #09B83E 10%, transparent);
+}
 .bg-\[\#39FF14\] {
   background-color: #39FF14;
 }
 .bg-\[\#D32F2F\] {
   background-color: #D32F2F;
+}
+.bg-\[\#FF8C00\] {
+  background-color: #FF8C00;
 }
 .bg-\[\#FF1493\] {
   background-color: #FF1493;
@@ -134,8 +165,17 @@
 .text-\[10px\] {
   font-size: 10px;
 }
+.text-\[\#0A66C2\] {
+  color: #0A66C2;
+}
 .text-\[\#00BFFF\] {
   color: #00BFFF;
+}
+.text-\[\#1E90FF\] {
+  color: #1E90FF;
+}
+.text-\[\#09B83E\] {
+  color: #09B83E;
 }
 .text-\[\#39FF14\] {
   color: #39FF14;
@@ -149,6 +189,12 @@
 .uppercase {
   text-transform: uppercase;
 }
+.opacity-80 {
+  opacity: 80%;
+}
+.opacity-90 {
+  opacity: 90%;
+}
 .shadow-\[0_0_8px_\#00BFFF\] {
   --tw-shadow: 0 0 8px var(--tw-shadow-color, #00BFFF);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -157,8 +203,16 @@
   --tw-shadow: 0 0 8px var(--tw-shadow-color, #39FF14);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+.shadow-\[0_0_8px_\#FF8C00\] {
+  --tw-shadow: 0 0 8px var(--tw-shadow-color, #FF8C00);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
 .shadow-\[0_0_8px_\#FF1493\] {
   --tw-shadow: 0 0 8px var(--tw-shadow-color, #FF1493);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+.shadow-\[0_0_8px_\#FFD700\] {
+  --tw-shadow: 0 0 8px var(--tw-shadow-color, #FFD700);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 .shadow-\[0_0_15px_\#D32F2F\] {
@@ -177,10 +231,34 @@
   transition-timing-function: var(--tw-ease, ease);
   transition-duration: var(--tw-duration, 0s);
 }
+.transition-all {
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, ease);
+  transition-duration: var(--tw-duration, 0s);
+}
 .transition-colors {
   transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
   transition-timing-function: var(--tw-ease, ease);
   transition-duration: var(--tw-duration, 0s);
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease, ease);
+  transition-duration: var(--tw-duration, 0s);
+}
+@media (hover: hover) {
+  .hover\:bg-\[\#0A66C2\]\/20:hover {
+    background-color: color-mix(in oklab, #0A66C2 20%, transparent);
+  }
+  .hover\:bg-\[\#1E90FF\]\/20:hover {
+    background-color: color-mix(in oklab, #1E90FF 20%, transparent);
+  }
+  .hover\:bg-\[\#09B83E\]\/20:hover {
+    background-color: color-mix(in oklab, #09B83E 20%, transparent);
+  }
+  .hover\:opacity-100:hover {
+    opacity: 100%;
+  }
 }
 @property --tw-rotate-x {
   syntax: "*";
