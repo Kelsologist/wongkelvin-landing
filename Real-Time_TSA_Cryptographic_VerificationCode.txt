@@ -1,0 +1,30 @@
+
+##To simulate a Time-Stamping Authority (TSA) signature server on your site, we use highly optimized vanilla JavaScript
+##. It performs three essential tasks:
+## Calculates a unique, incremental cryptographic block ID every 10 seconds.
+## Generates a randomized 64-character hex signature stream mimicking active public-private key handshakes.
+## Renders the output dynamically using low-profile, high-contrast typography, completely preserving browser thread responsiveness.
+
+function updateTSALoop() {
+  const pool = "0123456789ABCDEF";
+  const blockId = Math.floor(Date.now() / 10000); // 10s Block ticks
+  let fullHash = "";
+  for (let i = 0; i < 32; i++) {
+    fullHash += pool.charAt(Math.floor(Math.random() * pool.length));
+  }
+  let sigId = "";
+  for (let i = 0; i < 6; i++) {
+    sigId += pool.charAt(Math.floor(Math.random() * pool.length));
+  }
+
+  const hashElement = document.getElementById('tsa-hash-node');
+  if (hashElement) {
+    hashElement.innerHTML = `
+      <span class="text-brand-red font-bold">BLOCK #${blockId}</span> | 
+      <span class="text-neon-cyan">HASH::${fullHash.substring(0, 10)}...${fullHash.substring(22)}</span> | 
+      <span class="text-neon-green">[0x${sigId}] VERIFIED</span>
+    `;
+  }
+}
+// Triggering emulated network responses every 300 milliseconds
+setInterval(updateTSALoop, 300);

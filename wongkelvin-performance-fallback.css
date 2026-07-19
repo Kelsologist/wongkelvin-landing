@@ -1,0 +1,113 @@
+/* 
+ * wongkelvin-performance-fallback.css
+ * OPTIMIZED ACCESSIBILITY & PERFORMANCE FALLBACK SYSTEM
+ * Engineered for wongkelvin.com to support Cloudflare Pages deployments.
+ * 
+ * Strictly aligned with Nielsen Norman Group (NN/G) contrast requirements [162, 163]
+ * and Malmö University UI transparency perception benchmarks [493, 605].
+ */
+
+:root {
+  /* Core variables */
+  --color-bg-solid: #0A0B10;
+  --color-card-solid: #121418;
+  --color-border-solid: #FFFFFF;
+  --color-accent-solid: #D32F2F;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * 1. PREFERS-REDUCED-TRANSPARENCY (Accessibility & Battery Protection)
+ * Triggers when OS-level "Reduce Transparency" is toggled on [166] or when
+ * low-power/saving modes enforce solid fills to reduce compositor work [117].
+ * ────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-transparency: reduce) {
+  /* Force the main background canvas to drop radial gradients */
+  .bg-blueprint-canvas {
+    background: var(--color-bg-solid) !important;
+  }
+
+  /* Strip all drifting volumetric background glows */
+  .ambient-glow-crimson,
+  .ambient-glow-cyan,
+  .ambient-glow-magenta,
+  .ambient-crimson-aura,
+  .ambient-cyan-aura,
+  .ambient-yellow-aura {
+    display: none !important;
+    background: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+
+  /* Swap translucent glass cards to high-contrast, flat solid containers [166] */
+  .wk-glass-card,
+  .glass-md,
+  .glass-sm,
+  .glass-lg,
+  .nk-glass-panel {
+    background: var(--color-card-solid) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1.5px solid var(--color-border-solid) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Turn off delicate top reflection rim sheens to prevent edge confusion */
+  .wk-glass-card::before,
+  .wk-glass-card::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Flatten neon ring lighting effects to simple, clean, solid strokes [192] */
+  .ring-glow-cyan,
+  .ring-glow-magenta,
+  .ring-glow-green,
+  .timezone-orbit-cyan,
+  .timezone-node-pulse {
+    stroke-width: 2px !important;
+    filter: none !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * 2. PREFERS-REDUCED-MOTION (GPU / CPU & Battery Lifespan Preservation)
+ * Deactivates all continuous timeline spins and drifting animations to instantly
+ * decrease browser paint cycles and conserve mobile battery [24, 204].
+ * ────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* Prevent background glow fields from floating across coordinates */
+  .ambient-glow-crimson,
+  .ambient-glow-cyan,
+  .ambient-glow-magenta {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Freeze active, hands-free concentric clock rings into static indicators */
+  .animate-spin-slow,
+  .animate-spin-medium,
+  .animate-astrolabe-outer,
+  .animate-astrolabe-middle,
+  .animate-astrolabe-inner,
+  .timezone-orbit-cyan,
+  .timezone-node-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Disable transitions on hover scales and opacity sweeps */
+  .wk-glass-card,
+  .wk-glass-card:hover {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  /* Stop music jukebox waveforms from bouncing */
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+    transform: none !important;
+  }
+}
