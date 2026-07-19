@@ -1,0 +1,194 @@
+/* 
+ * wongkelvin-design03-v6.css
+ * PRODUCTION-READY SPATIAL GLASSMORPHISM DESIGN SYSTEM SPECIFICATION (PURE DARK GREY EDITION)
+ * Grounded in: PresentationSlide_NK_COmpressors_Modules_1-3.pdf & design-03.jpg
+ */
+
+:root {
+  /* --- Canvas Variables (Sleek Dark Grey Blueprint Grid) --- */
+  --canvas-slate: #242424;         /* Neutral Dark Grey gradient start */
+  --canvas-charcoal: #121212;      /* Deep Charcoal Grey gradient end */
+  --coordinate-grid: rgba(255, 255, 255, 0.02); /* 50px technical drawing grid lines */
+  
+  /* --- Premium Typography & Base Material Colors --- */
+  --buttercream: #F8F5EE;          /* Matte buttercream text base */
+  --slate-caption: #96A0AF;        /* Soft grey-blue caption metadata */
+  --brand-red: #D32F2F;            /* Signature bold crimson matching logo */
+
+  /* --- Translucent Glass Material Properties (60% to 80% Transparency) --- */
+  --glass-fill: rgba(20, 22, 26, 0.65); /* 65% opaque dark-slate base */
+  --glass-blur: 40px;              /* Backdrop blur sweet spot */
+  --glass-edge: rgba(255, 255, 255, 0.08); /* 1px light-catching edge stroke */
+
+  /* --- Highly Saturated Luminous Telemetry Indicators --- */
+  --neon-cyan: #00BFFF;            /* SG Clock active timing state */
+  --neon-green: #39FF14;           /* Active operating & healthy nodes */
+  --neon-blue: #1E90FF;            /* Electric linkage pathways */
+  --neon-yellow: #FFD700;          /* Warning limits & yellow alarms */
+  --neon-orange: #FF8C00;          /* Jukebox orange lighting indicator */
+  --neon-magenta: #FF1493;         /* Auxiliary timing telemetry */
+  --neon-crimson: #D32F2F;         /* RSA security & active fault alerts */
+}
+
+/* ─── NATIVE CANVAS WITH CAD COORDINATE GRID ───────────────────────── */
+.bg-blueprint-canvas {
+  background: radial-gradient(circle at center, var(--canvas-slate) 0%, var(--canvas-charcoal) 100%);
+  position: relative;
+  min-height: 100vh;
+}
+
+.bg-blueprint-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--coordinate-grid) 1.2px, transparent 1.2px), 
+    linear-gradient(90deg, var(--coordinate-grid) 1.2px, transparent 1.2px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── VOLUMETRIC BACKGROUND AMBIENT GLOWS (GPU-ACCELERATED) ────────── */
+.ambient-glow-crimson {
+  position: absolute;
+  top: 10%; left: 15%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(211, 47, 47, 0.05) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0); /* Forces mobile GPU compositing */
+  backface-visibility: hidden;
+  animation: driftGlowCrimson 25s infinite ease-in-out;
+  z-index: 2;
+}
+
+.ambient-glow-cyan {
+  position: absolute;
+  bottom: 10%; right: 10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.04) 0%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: driftGlowCyan 30s infinite ease-in-out;
+  z-index: 2;
+}
+
+@keyframes driftGlowCrimson {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(80px, -60px, 0) scale(1.1); }
+  66% { transform: translate3d(-40px, 40px, 0) scale(0.9); }
+}
+
+@keyframes driftGlowCyan {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-100px, 50px, 0) scale(0.95); }
+  66% { transform: translate3d(50px, -70px, 0) scale(1.05); }
+}
+
+/* ─── GLASS PANEL LAYOUTS ──────────────────────────────────────────── */
+.wk-glass-card {
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 4px; /* Sharp engineering layout aesthetics */
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.06), /* Inner rim reflection */ 
+    0 20px 45px -12px rgba(0, 0, 0, 0.7);        /* Soft shadow displacement */
+  position: relative;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.wk-glass-card:hover {
+  border-color: rgba(211, 47, 47, 0.25); /* Subtle brand-red light catch on hover */
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), 
+    0 25px 50px -10px rgba(211, 47, 47, 0.12);
+}
+
+/* ─── GEOMETRIC ACCENT CORNER BRACKETS (┌ ┐ & └ ┘) ─────────────────── */
+.bracket-corners::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px;
+  width: 12px; height: 12px;
+  border-top: 1.5px solid var(--brand-red);
+  border-left: 1.5px solid var(--brand-red);
+  pointer-events: none;
+}
+
+.bracket-corners::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; right: -4px;
+  width: 12px; height: 12px;
+  border-bottom: 1.5px solid var(--brand-red);
+  border-right: 1.5px solid var(--brand-red);
+  pointer-events: none;
+}
+
+/* ─── THE CHRONOS SPIRE GRAPHIC ELEMENTS ───────────────────────────── */
+.timing-ring-cyan {
+  stroke: var(--neon-cyan);
+  filter: drop-shadow(0 0 5px var(--neon-cyan));
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.timing-ring-green {
+  stroke: var(--neon-green);
+  filter: drop-shadow(0 0 5px var(--neon-green));
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.timing-ring-blue {
+  stroke: var(--neon-blue);
+  filter: drop-shadow(0 0 5px var(--neon-blue));
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* ─── JUKEBOX WAV SPECTRUM ANIMATION ──────────────────────────────── */
+@keyframes spectrumHeight {
+  0%, 100% { height: 10px; }
+  50% { height: 60px; }
+}
+
+.juke-bar-1 { animation: spectrumHeight 1.1s infinite ease-in-out alternate; }
+.juke-bar-2 { animation: spectrumHeight 0.7s infinite ease-in-out alternate 0.1s; }
+.juke-bar-3 { animation: spectrumHeight 1.3s infinite ease-in-out alternate 0.3s; }
+.juke-bar-4 { animation: spectrumHeight 0.9s infinite ease-in-out alternate 0.2s; }
+.juke-bar-5 { animation: spectrumHeight 1.2s infinite ease-in-out alternate 0.4s; }
+
+/* ─── CHARACTER RUN-LEVEL BRANDING ────────────────────────────────── */
+.brand-run-red {
+  color: var(--brand-red) !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 10px rgba(211, 47, 47, 0.2);
+}
+
+/* ─── ACCESSIBILITY & PERFORMANCE HARDWARE FALLBACKS ──────────────── */
+@media (prefers-reduced-transparency: reduce) {
+  .wk-glass-card {
+    background: #121418 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 2px solid var(--buttercream) !important;
+    box-shadow: none !important;
+  }
+  .ambient-glow-crimson, .ambient-glow-cyan {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow-crimson, .ambient-glow-cyan, [class*="juke-bar-"] {
+    animation: none !important;
+  }
+  [class*="juke-bar-"] {
+    height: 25px !important;
+  }
+}

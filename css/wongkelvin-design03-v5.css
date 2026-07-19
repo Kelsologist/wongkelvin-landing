@@ -1,0 +1,69 @@
+
+## File Path: /css/wongkelvin-design03-v4.css
+## Token Count: 13 core style tokens
+## File Contents:
+/* 
+ * /css/wongkelvin-design03-v4.css
+ * Core Design Tokens & Canvas Framework
+ */
+:root {
+  /* --- Canvas Tokens (The Grey Blueprint Backgrounds) --- */
+  --token-canvas-slate: #1E2026;         /* Slate Grey gradient start */
+  --token-canvas-charcoal: #0F1012;      /* Dark Charcoal gradient end */
+  --token-grid-line: rgba(255, 255, 255, 0.025); /* Technical coordinate grid overlay */
+
+  /* --- Brand Run Typography Tokens --- */
+  --token-brand-red: #D32F2F;            /* Exact red matching the native NK and ITI brand marks */
+  --token-buttercream: #F8F5EE;          /* Matte buttercream body font */
+  --token-slate-caption: #96A0AF;        /* Soft blue-grey secondary text */
+
+  /* --- Translucent Glass Tokens --- */
+  --token-glass-fill: rgba(20, 22, 26, 0.55);  /* Dark translucent backdrop tint */
+  --token-glass-blur: 40px;              /* Diffused background blur parameter */
+  --token-glass-border: rgba(255, 255, 255, 0.08); /* 1px refracting edge border outline */
+
+  /* --- High-Contrast Neon Telemetry Tokens (Inspired by Slide 15 & 16) --- */
+  --token-neon-cyan: #00BFFF;            /* Orbit Ring 1 / Active connection status */
+  --token-neon-magenta: #FF1493;         /* Orbit Ring 2 / Media streaming state */
+  --token-neon-green: #39FF14;           /* Orbit Ring 3 / Normal operating system state */
+  --token-neon-yellow: #FFD700;          /* Warning notifications / TSA security signature updates */
+}
+⚡ CSS Styling for Neon Telemetry Text
+To translate the glowing dials and status readouts from design-03.jpg into your web stylesheet without sacrificing mobile readability, we use layered drop-shadow filters. This creates a realistic, self-illuminated neon refraction:
+/* --- High-Contrast Telemetry Readouts --- */
+.telemetry-cyan-glow {
+  color: var(--token-neon-cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  /* Double-layer drop shadow for intense realistic neon glow */
+  text-shadow: 
+    0 0 4px rgba(0, 191, 255, 0.8),
+    0 0 12px rgba(0, 191, 255, 0.3);
+}
+
+.telemetry-green-glow {
+  color: var(--token-neon-green);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-shadow: 
+    0 0 4px rgba(57, 255, 20, 0.8),
+    0 0 12px rgba(57, 255, 20, 0.3);
+}
+
+.telemetry-magenta-glow {
+  color: var(--token-neon-magenta);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-shadow: 
+    0 0 4px rgba(255, 20, 147, 0.8),
+    0 0 12px rgba(255, 20, 147, 0.3);
+}
+
+.telemetry-yellow-glow {
+  color: var(--token-neon-yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-shadow: 
+    0 0 4px rgba(255, 215, 0, 0.8),
+    0 0 12px rgba(255, 215, 0, 0.3);
+}
