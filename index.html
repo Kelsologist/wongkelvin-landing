@@ -184,17 +184,29 @@
   <div class="ambient-glow-crimson"></div>
   <div class="ambient-glow-cyan"></div>
 
-  <!-- ─── HEADER (Red character branding run) ────────────────────────── -->
+  <!-- ─── HEADER (Logo branding + identity verification) ────────────────────────── -->
   <nav class="relative z-10 max-w-7xl mx-auto w-full flex justify-between items-center border-b border-white/5 pb-6 mb-8">
-    <div class="flex items-center space-x-3">
-      <span class="h-6 w-1 bg-[#D32F2F] block"></span>
-      <span class="font-extrabold tracking-tight text-lg font-mono">
-        <span class="text-[#D32F2F]">W</span>ONG <span class="text-[#D32F2F]">K</span>ELVIN // GATEWAY
-      </span>
+    <div class="flex items-center space-x-4">
+      <!-- KW Logo -->
+      <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="h-7 md:h-8 w-auto opacity-90 hover:opacity-100 transition-opacity cursor-pointer" title="Wong Kelvin">
+      
+      <!-- Brand text -->
+      <div class="border-l border-white/10 pl-4">
+        <span class="font-extrabold tracking-tight text-lg font-mono block">
+          <span class="text-[#D32F2F]">W</span>ONG <span class="text-[#D32F2F]">K</span>ELVIN // GATEWAY
+        </span>
+        <span class="text-[9px] font-mono text-slate-500 tracking-widest">AI SYSTEMS DESIGNER</span>
+      </div>
     </div>
     
-    <div class="font-mono text-xs text-slate-400 uppercase tracking-wider hidden sm:block">
-      Identity Verification Node: <span class="text-[#39FF14] font-bold">ONLINE</span>
+    <div class="flex items-center space-x-6">
+      <!-- k-works logo -->
+      <img src="./k-works.png" alt="K-Works" class="h-6 md:h-7 w-auto opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="K-Works Platform">
+      
+      <!-- Status indicator -->
+      <div class="font-mono text-xs text-slate-400 uppercase tracking-wider hidden sm:block">
+        Status: <span class="text-[#39FF14] font-bold">ONLINE</span>
+      </div>
     </div>
   </nav>
 
@@ -202,7 +214,8 @@
   <main class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 items-stretch mb-12">
     
     <!-- PANEL 1 (Cols: 3) - STACKED WORLD TIMEZONE CARDS -->
-    <section class="lg:col-span-3 space-y-6 flex flex-col justify-between">
+    <section class="lg:col-span-3 space-y-4 flex flex-col justify-between">
+      <!-- Timezone cards: Tokyo, London, New York, Singapore, Sydney -->
       <div class="border border-white/5 p-1 rounded-sm">
         <div class="wk-glass-card bracket-corners p-5 flex items-center justify-between">
           <div>
@@ -216,7 +229,7 @@
       <div class="border border-white/5 p-1 rounded-sm">
         <div class="wk-glass-card bracket-corners p-5 flex items-center justify-between">
           <div>
-            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">LONDON (UTC+1)</span>
+            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">LONDON (UTC+0)</span>
             <span id="london-time" class="text-2xl font-black text-white font-mono">00:00</span>
           </div>
           <span class="h-3 w-3 rounded-full bg-[#FF1493] shadow-[0_0_8px_#FF1493]"></span>
@@ -226,10 +239,30 @@
       <div class="border border-white/5 p-1 rounded-sm">
         <div class="wk-glass-card bracket-corners p-5 flex items-center justify-between">
           <div>
-            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">NEW YORK (UTC-4)</span>
+            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">NEW YORK (UTC-5)</span>
             <span id="new-york-time" class="text-2xl font-black text-white font-mono">00:00</span>
           </div>
           <span class="h-3 w-3 rounded-full bg-[#39FF14] shadow-[0_0_8px_#39FF14]"></span>
+        </div>
+      </div>
+
+      <div class="border border-white/5 p-1 rounded-sm">
+        <div class="wk-glass-card bracket-corners p-5 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">SHANGHAI (UTC+8)</span>
+            <span id="shanghai-time" class="text-2xl font-black text-white font-mono">00:00</span>
+          </div>
+          <span class="h-3 w-3 rounded-full bg-[#FFD700] shadow-[0_0_8px_#FFD700]"></span>
+        </div>
+      </div>
+
+      <div class="border border-white/5 p-1 rounded-sm">
+        <div class="wk-glass-card bracket-corners p-5 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-slate-400 block tracking-widest">SYDNEY (UTC+10)</span>
+            <span id="sydney-time" class="text-2xl font-black text-white font-mono">00:00</span>
+          </div>
+          <span class="h-3 w-3 rounded-full bg-[#FF8C00] shadow-[0_0_8px_#FF8C00]"></span>
         </div>
       </div>
     </section>
@@ -297,31 +330,80 @@
       </div>
     </section>
 
-    <!-- PANEL 4 (Cols: 3) - HOVER-RESPONSIVE PROFILE CARD -->
-    <section class="lg:col-span-3 space-y-6 flex flex-col justify-between">
+    <!-- PANEL 4 (Cols: 3) - ENHANCED PROFILE CARD WITH SOCIAL LINKS -->
+    <section class="lg:col-span-3 space-y-4 flex flex-col justify-between">
+      <!-- Main Profile Card -->
       <div class="wk-glass-card p-6 flex flex-col justify-between h-full border-white/10 relative overflow-hidden">
-        <div class="text-center space-y-4">
-          <!-- W and K highlight run -->
-          <h3 class="text-lg font-black tracking-tight uppercase">
+        <!-- KW Logo in card header -->
+        <div class="flex flex-col items-center space-y-4">
+          <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="h-12 w-auto opacity-90">
+          
+          <!-- Name with brand colors -->
+          <h3 class="text-xl font-black tracking-tight uppercase text-center">
             <span class="text-[#D32F2F]">W</span>ONG <span class="text-[#D32F2F]">K</span>ELVIN
           </h3>
-          <span class="text-[10px] font-mono text-[#00BFFF] tracking-widest block uppercase border border-[#00BFFF]/20 px-2 py-1 rounded-sm bg-[#00BFFF]/5">
-            AI Systems Designer
+          
+          <!-- Title badge -->
+          <span class="text-[10px] font-mono text-[#00BFFF] tracking-widest block uppercase border border-[#00BFFF]/20 px-3 py-1.5 rounded-sm bg-[#00BFFF]/5">
+            AI SYSTEMS DESIGNER
           </span>
         </div>
 
-        <!-- Action Download Triggers -->
-        <div class="space-y-4 pt-4 border-t border-white/5 relative z-20">
+        <!-- Action buttons and links -->
+        <div class="space-y-3 pt-6 border-t border-white/5 relative z-20">
+          <!-- vCard download -->
           <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AWong%3BKelvin%0AFN%3AKelvin%20Wong%0AEMAIL%3Acontact%40wongkelvin.com%0AURL%3Ahttps%3A%2F%2Fwongkelvin.com%0AEND%3AVCARD" 
              download="Kelvin_Wong.vcf" 
-             class="block w-full py-3 text-center text-xs font-mono font-bold uppercase tracking-wider rounded-sm bg-[#D32F2F] text-white hover:bg-red-700 transition-colors shadow-lg">
+             class="block w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider rounded-sm bg-[#D32F2F] text-white hover:bg-red-700 transition-colors shadow-lg">
             Download vCard 🡥
           </a>
 
+          <!-- QR Code reveal -->
           <button onclick="toggleQR()" 
-                  class="block w-full py-3 text-center text-xs font-mono font-bold uppercase tracking-wider rounded-sm bg-transparent border border-white/20 text-[#F8F5EE] hover:bg-white/5 transition-colors">
+                  class="block w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider rounded-sm bg-transparent border border-white/20 text-[#F8F5EE] hover:bg-white/5 transition-colors">
             Reveal Secure QR
           </button>
+
+          <!-- RSA Platform link -->
+          <a href="https://rsa.wongkelvin.com" target="_blank" rel="noopener noreferrer"
+             class="block w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider rounded-sm bg-[#1E90FF]/10 border border-[#1E90FF]/30 text-[#1E90FF] hover:bg-[#1E90FF]/20 transition-colors">
+            RSA Platform →
+          </a>
+        </div>
+      </div>
+
+      <!-- Social & Contact Links -->
+      <div class="wk-glass-card p-4 border-white/5 space-y-3">
+        <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest block">Contact & Social</span>
+        
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Email -->
+          <a href="mailto:contact@wongkelvin.com" 
+             title="Email"
+             class="flex items-center justify-center space-x-2 py-2 px-3 rounded-sm bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all text-xs font-mono text-[#F8F5EE]">
+            <span>✉ Email</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/wongkelvin" target="_blank" rel="noopener noreferrer"
+             title="LinkedIn"
+             class="flex items-center justify-center space-x-2 py-2 px-3 rounded-sm bg-[#0A66C2]/10 border border-[#0A66C2]/20 hover:bg-[#0A66C2]/20 transition-all text-xs font-mono text-[#0A66C2]">
+            <span>in LinkedIn</span>
+          </a>
+
+          <!-- WeChat -->
+          <a href="javascript:void(0)" onclick="alert('WeChat ID: wongkelvin')" 
+             title="WeChat"
+             class="flex items-center justify-center space-x-2 py-2 px-3 rounded-sm bg-[#09B83E]/10 border border-[#09B83E]/20 hover:bg-[#09B83E]/20 transition-all text-xs font-mono text-[#09B83E]">
+            <span>微 WeChat</span>
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/kelsologist" target="_blank" rel="noopener noreferrer"
+             title="GitHub"
+             class="flex items-center justify-center space-x-2 py-2 px-3 rounded-sm bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all text-xs font-mono text-[#F8F5EE]">
+            <span>⚙ GitHub</span>
+          </a>
         </div>
       </div>
     </section>
@@ -372,6 +454,8 @@
       const tyoTimeDisplay = document.getElementById('tokyo-time');
       const lonTimeDisplay = document.getElementById('london-time');
       const nycTimeDisplay = document.getElementById('new-york-time');
+      const shanghaiTimeDisplay = document.getElementById('shanghai-time');
+      const sydneyTimeDisplay = document.getElementById('sydney-time');
       const tsaHashNode = document.getElementById('tsa-hash-node');
 
       // 1. Hands-Free SVG Concentric Clock Engine
@@ -399,8 +483,10 @@
           return `${pad(targetTime.getHours())}:${pad(targetTime.getMinutes())}`;
         };
         if (tyoTimeDisplay) tyoTimeDisplay.textContent = getTzTime(9);
-        if (lonTimeDisplay) lonTimeDisplay.textContent = getTzTime(1);
-        if (nycTimeDisplay) nycTimeDisplay.textContent = getTzTime(-4);
+        if (lonTimeDisplay) lonTimeDisplay.textContent = getTzTime(0);
+        if (nycTimeDisplay) nycTimeDisplay.textContent = getTzTime(-5);
+        if (shanghaiTimeDisplay) shanghaiTimeDisplay.textContent = getTzTime(8);
+        if (sydneyTimeDisplay) sydneyTimeDisplay.textContent = getTzTime(10);
       }
 
       // 2. TSA Real-time dynamic block signature loops
