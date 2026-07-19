@@ -1,0 +1,218 @@
+/* 
+ * wongkelvin-design03-v4.css
+ * MASTER CLASS PLATFORM LAYOUT SPECIFICATION (DESIGN-03 CATHEDRAL EDITION)
+ * Fully aligned with WONGKELVIN.com glassmorphism design parameters
+ */
+
+:root {
+  /* Matte Engineering Dark Palette */
+  --color-canvas-slate: #1E2026;
+  --color-canvas-charcoal: #0F1012;
+  --color-grid-line: rgba(255, 255, 255, 0.025);
+  
+  /* Luminous Cyber Neon Accents */
+  --color-brand-red: #D32F2F;
+  --color-neon-cyan: #00BFFF;
+  --color-neon-magenta: #FF1493;
+  --color-neon-green: #39FF14;
+  --color-neon-yellow: #FFD700;
+  --color-buttercream: #F8F5EE;
+  --color-slate-caption: #96A0AF;
+  
+  /* Glassmorphism Structural Constraints */
+  --glass-fill: rgba(20, 22, 26, 0.55);
+  --glass-blur: 40px;
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── CANVAS GRID SYSTEM ─────────────────────────────────────────── */
+.bg-blueprint-canvas {
+  background: radial-gradient(circle at center, var(--color-canvas-slate) 0%, var(--color-canvas-charcoal) 100%);
+  position: relative;
+}
+
+.bg-blueprint-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── VOLUMETRIC DRIFTING BACKGROUND GLOWS (GPU-OPTIMIZED) ───────── */
+.ambient-glow-crimson {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(211, 47, 47, 0.07) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: driftGlowCrimson 25s infinite ease-in-out;
+  z-index: 0;
+}
+
+.ambient-glow-cyan {
+  position: absolute;
+  bottom: 20%;
+  right: 15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.06) 0%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: driftGlowCyan 30s infinite ease-in-out;
+  z-index: 0;
+}
+
+.ambient-glow-magenta {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.04) 0%, transparent 70%);
+  filter: blur(110px);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: driftGlowMagenta 28s infinite ease-in-out;
+  z-index: 0;
+}
+
+@keyframes driftGlowCrimson {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(80px, -60px, 0) scale(1.15); }
+  66% { transform: translate3d(-40px, 40px, 0) scale(0.9); }
+}
+
+@keyframes driftGlowCyan {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-100px, 70px, 0) scale(0.85); }
+  66% { transform: translate3d(60px, -80px, 0) scale(1.1); }
+}
+
+@keyframes driftGlowMagenta {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(50px, 50px, 0) scale(1.1); }
+}
+
+/* ─── FROSTED PANEL & CORNER BRACKETS ────────────────────────────── */
+.wk-glass-card {
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: 4px; /* Sharp, engineering modular lines */
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.06), 
+    0 20px 45px -12px rgba(0, 0, 0, 0.65);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
+}
+
+.wk-glass-card:hover {
+  border-color: rgba(211, 47, 47, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 
+    0 25px 50px -10px rgba(211, 47, 47, 0.12);
+}
+
+/* Corner Bracket Pseudo-elements */
+.bracket-corners::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  border-top: 1.5px solid var(--color-brand-red);
+  border-left: 1.5px solid var(--color-brand-red);
+  pointer-events: none;
+}
+
+.bracket-corners::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  border-bottom: 1.5px solid var(--color-brand-red);
+  border-right: 1.5px solid var(--color-brand-red);
+  pointer-events: none;
+}
+
+/* ─── ASTROLABE CLOCK SYSTEM (NEON RIMS) ─────────────────────────── */
+.ring-glow-cyan {
+  stroke: var(--color-neon-cyan);
+  filter: drop-shadow(0 0 4px rgba(0, 191, 255, 0.8));
+  transition: stroke-dashoffset 0.1s ease-in-out;
+}
+
+.ring-glow-magenta {
+  stroke: var(--color-neon-magenta);
+  filter: drop-shadow(0 0 4px rgba(255, 20, 147, 0.8));
+  transition: stroke-dashoffset 0.1s ease-in-out;
+}
+
+.ring-glow-green {
+  stroke: var(--color-neon-green);
+  filter: drop-shadow(0 0 4px rgba(57, 255, 20, 0.8));
+  transition: stroke-dashoffset 0.1s ease-in-out;
+}
+
+/* ─── DYNAMIC SOUND SPECTRUM ANIMATIONS ──────────────────────────── */
+@keyframes bounceBar {
+  0%, 100% { height: 10px; }
+  50% { height: 50px; }
+}
+
+.spectrum-bar-1 { animation: bounceBar 1.2s infinite ease-in-out alternate; }
+.spectrum-bar-2 { animation: bounceBar 0.8s infinite ease-in-out alternate 0.2s; }
+.spectrum-bar-3 { animation: bounceBar 1.4s infinite ease-in-out alternate 0.4s; }
+.spectrum-bar-4 { animation: bounceBar 1.0s infinite ease-in-out alternate 0.1s; }
+.spectrum-bar-5 { animation: bounceBar 1.1s infinite ease-in-out alternate 0.3s; }
+
+/* ─── INTERACTIVE OVERLAY MODALS ─────────────────────────────────── */
+.wk-modal-overlay {
+  background: rgba(8, 9, 11, 0.85);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* ─── ACCESSIBILITY POWER-SAVING STATE ───────────────────────────── */
+@media (prefers-reduced-transparency: reduce) {
+  .wk-glass-card {
+    background: #121418 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: none !important;
+  }
+  .ambient-glow-crimson, .ambient-glow-cyan, .ambient-glow-magenta {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow-crimson, .ambient-glow-cyan, .ambient-glow-magenta {
+    animation: none !important;
+  }
+  .spectrum-bar-1, .spectrum-bar-2, .spectrum-bar-3, .spectrum-bar-4, .spectrum-bar-5 {
+    animation: none !important;
+    height: 25px !important;
+  }
+}

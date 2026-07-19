@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelvin Wong | AION-KW Cyber Guardian</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2F3438 0%, #1A1D20 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(10, 15, 30, 0.7); /* 70% transparency */
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        .glow-green { box-shadow: 0 0 20px rgba(74, 222, 128, 0.2); border-top: 2px solid #4ade80; }
+        .glow-blue { box-shadow: 0 0 20px rgba(96, 165, 250, 0.2); border-top: 2px solid #60a5fa; }
+        .glow-amber { box-shadow: 0 0 20px rgba(251, 191, 36, 0.2); border-top: 2px solid #fbbf24; }
+        .glow-red { box-shadow: 0 0 20px rgba(248, 113, 113, 0.2); border-top: 2px solid #f87171; }
+    </style>
+</head>
+<body class="p-8">
+
+    <main class="max-w-7xl mx-auto">
+        <!-- Granular Header Branding -->
+        <header class="mb-12">
+            <h1 class="text-3xl font-bold tracking-tighter">
+                <span class="text-emerald-400">AION</span>-KW 
+                <span class="text-amber-400 font-light">K-Workz</span>
+            </h1>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            
+            <!-- (1) Chronos Tower -->
+            <div class="glass-card glow-blue p-6 flex flex-col items-center">
+                <div class="w-16 h-16 bg-slate-800 rounded-full mb-4 flex items-center justify-center">⏰</div>
+                <div id="sgt-time" class="text-xl font-mono text-blue-400">00:00:00</div>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-2">SGT Time</p>
+            </div>
+
+            <!-- (2) World Clocks -->
+            <div class="glass-card glow-green p-6 text-[11px] space-y-3">
+                <div class="flex justify-between"><span>London</span><span id="london">00:00</span></div>
+                <div class="flex justify-between"><span>Beijing</span><span id="beijing">00:00</span></div>
+                <div class="flex justify-between"><span>Jakarta</span><span id="jakarta">00:00</span></div>
+                <div class="flex justify-between"><span>Brazil</span><span id="brazil">00:00</span></div>
+            </div>
+
+            <!-- (3) Jukebox -->
+            <a href="#" class="glass-card glow-red p-6 flex flex-col items-center justify-center hover:bg-slate-800 transition">
+                <div class="text-2xl mb-2">🎵</div>
+                <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Apple Music</span>
+            </a>
+
+            <!-- (4) Identity -->
+            <div class="glass-card glow-amber p-6 flex flex-col justify-between gap-4">
+                <div class="text-[10px] text-slate-300">Kelvin Wong</div>
+                <div class="flex flex-col gap-2">
+                    <a href="assets/kelvin.vcf" class="text-[9px] bg-slate-900 p-2 rounded text-center border border-slate-700">.VCF</a>
+                    <button class="text-[9px] bg-slate-900 p-2 rounded text-center border border-slate-700">QR CONTACT</button>
+                </div>
+            </div>
+
+            <!-- (5) RSA Portal -->
+            <a href="https://rsa.wongkelvin.com" class="glass-card glow-blue p-6 flex flex-col items-center justify-center border border-blue-900/30">
+                <div class="text-xl mb-2 text-blue-400">🔒</div>
+                <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">RSA Portal</span>
+            </a>
+
+        </div>
+    </main>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('sgt-time').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Singapore', hour12: false });
+            document.getElementById('london').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Europe/London', hour: '2-digit', minute:'2-digit', hour12: false });
+            document.getElementById('beijing').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Shanghai', hour: '2-digit', minute:'2-digit', hour12: false });
+            document.getElementById('jakarta').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute:'2-digit', hour12: false });
+            document.getElementById('brazil').innerText = now.toLocaleTimeString('en-US', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute:'2-digit', hour12: false });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>

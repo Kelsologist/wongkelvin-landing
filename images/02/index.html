@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wong Kelvin RSA Gateway</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            background: #0d121c; /* Deep, dark blueprint background */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Base Blueprint Grid and Architectural Elements */
+        .main-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('image_568.png'); /* The base blueprint image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Abstracted background technical text from the grid */
+        .bg-text {
+            position: absolute;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            pointer-events: none;
+            text-shadow: 0 0 5px currentColor;
+        }
+
+        .rsa-key-gen { top: 38%; left: 10%; color: #ff00ff; /* Fuchsia */ }
+        .visit-url-ref { top: 41%; left: 13%; color: #00e0ff; /* Cyan */ }
+        .k-workz { top: 12%; left: 47%; color: #00ff00; /* Green */ }
+        .aion { top: 35%; left: 81%; color: #00e0ff; /* Cyan */ }
+        .jukebox-ref { bottom: 6%; left: 45%; color: #ff00ff; /* Fuchsia */ }
+        .wong-kelvin-ref { bottom: 6%; left: 71%; color: #00ff00; /* Green */ }
+
+        /* Coordinate markers */
+        .coord {
+            position: absolute;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+        }
+        .coord.v1 { top: 10%; left: 2%; }
+        .coord.v2 { top: 20%; left: 2%; }
+        .coord.v3 { top: 25%; left: 2%; }
+        .coord.v4 { top: 82%; left: 2%; }
+        .coord.h1 { top: 96%; left: 5%; }
+        .coord.h2 { top: 96%; left: 20%; }
+        .coord.h3 { top: 96%; left: 70%; }
+        .coord.h4 { top: 96%; left: 95%; }
+
+        /* Card Container with Grid for uniform columns */
+        .card-grid {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 90%;
+            height: 80%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three uniform columns */
+            gap: 20px;
+            box-sizing: border-box;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .card-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(20, 22, 28, 0.6); /* Translucent, dark backdrop */
+            backdrop-filter: blur(20px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Minimal border refracting edge */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            color: #fff;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Card-specific content formatting */
+        .glass-card h3 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .desc, .state {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+            margin-top: 5px;
+        }
+
+        /* Card-specific detail blocks */
+        
+        .card-visit-url .url { font-size: 18px; color: #00e0ff; }
+        .card-visit-url p { margin: 5px 0; }
+
+        .card-sg-clock .date { font-size: 14px; color: #fff; margin: 0 0 10px;}
+        .card-sg-clock .time {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00ff00; /* Green time */
+            background: rgba(0, 255, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card-world-time .time-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .card-world-time .time-unit {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .card-world-time .city { font-size: 12px; margin: 0 0 5px; color: rgba(255,255,255,0.8); }
+        .card-world-time .time { font-size: 18px; font-weight: 700; color: #fff; }
+        .card-world-time .state { font-size: 9px; }
+
+        .card-apple-music { align-items: center; justify-content: space-between;}
+        .card-apple-music .sub { font-size: 12px; font-style: italic; color: #ff00ff; }
+        .card-apple-music .playlist-placeholder {
+            width: 140px; height: 140px;
+            border: 2px solid #ff00ff; /* Fuchsia frame */
+            margin: 20px 0;
+            background: #111; /* Playlist cover placeholder */
+        }
+        .card-apple-music .listen { font-size: 12px; margin-bottom: 5px;}
+        .card-apple-music .music-logo { font-size: 14px; font-weight: 700;}
+
+        .card-wong-profile { justify-content: space-between; }
+        .card-wong-profile .profile-avatar-icon {
+            width: 60px; height: 60px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+        .card-wong-profile .profile-links {
+            list-style: none; padding: 0; margin: 10px 0;
+            text-align: center;
+        }
+        .card-wong-profile .profile-links li {
+            margin: 5px 0; font-size: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 2px;
+        }
+        .card-wong-profile .qr-code-placeholder {
+            width: 120px; height: 120px;
+            background: #fff; /* QR Code placeholder */
+            margin: 10px auto;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Pointer line abstraction */
+        .pointer-line {
+            position: absolute;
+            top: 29.5%; left: 14.8%; width: 13.7%; height: 6px;
+            background-color: #00e0ff;
+            transform: rotate(-19.5deg);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .pointer-line::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: 100%; width: 10px; height: 10px;
+            background: #0d121c;
+            border-radius: 50%;
+            border: 2px solid #00e0ff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Technical Text from Grid (positioned) -->
+        <div class="bg-text-wrapper">
+            <span class="bg-text rsa-key-gen">RSA KEY GEN</span>
+            <span class="bg-text visit-url-ref">rsa.wongkelvin.com</span>
+            <span class="bg-text k-workz">K-Workz</span>
+            <span class="bg-text aion">AION</span>
+            <span class="bg-text jukebox-ref">JUKEBOX</span>
+            <span class="bg-text wong-kelvin-ref">WONG KELVIN</span>
+        </div>
+
+        <!-- Coordinates -->
+        <span class="coord v1">(0,0)</span>
+        <span class="coord v2">(0,10)</span>
+        <span class="coord v3">(0,20)</span>
+        <span class="coord v4">(0,82)</span>
+        <span class="coord h1">(5,0)</span>
+        <span class="coord h2">(20,0)</span>
+        <span class="coord h3">(70,0)</span>
+        <span class="coord h4">(95,0)</span>
+
+        <!-- Pointer Line to URL Card -->
+        <div class="pointer-line"></div>
+
+        <!-- Uniform Column Grid for Floating Cards -->
+        <div class="card-grid">
+            <!-- Column 1 -->
+            <div class="card-column col-1">
+                <div class="glass-card card-visit-url">
+                    <h3>VISIT</h3>
+                    <p class="url">rsa.wongkelvin.com</p>
+                    <p class="desc">RSA PUBLIC KEY ENDPOINT</p>
+                </div>
+                <div class="glass-card card-sg-clock">
+                    <h3>SINGAPORE (SG) STANDARD TIME</h3>
+                    <p class="date">19 JULY 2026</p>
+                    <p class="time">16:30:45</p>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="card-column col-2">
+                <div class="glass-card card-apple-music">
+                    <h3>APPLE MUSIC JUKEBOX</h3>
+                    <p class="sub">curator playlist</p>
+                    <div class="playlist-placeholder">
+                        <!-- Simulated playlist cover cover image_568.png details if needed -->
+                    </div>
+                    <p class="listen">LISTEN NOW</p>
+                    <p class="music-logo">MUSIC</p>
+                </div>
+                <div class="glass-card card-wong-profile">
+                    <h3>WONG KELVIN PROFILE</h3>
+                    <div class="profile-avatar-icon"></div>
+                    <ul class="profile-links">
+                        <li>vCard / Contacts</li>
+                        <li>Profile Card</li>
+                        <li>Gravatar Profile</li>
+                    </ul>
+                    <div class="qr-code-placeholder">
+                        <!-- Simulated QR code from image_568.png details if needed -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="card-column col-3">
+                <div class="glass-card card-world-time">
+                    <div class="time-grid">
+                        <div class="time-unit">
+                            <p class="city">LONDON (BST)</p>
+                            <p class="time">16:30:45</p>
+                            <p class="state">ACTIVE HEADUNITS</p>
+                        </div>
+                        <div class="time-unit">
+                            <p class="city">BEIJING (CST)</p>
+                            <p class="time">16:13:33</p>
+                            <p class="state">ACTIVE HEADUNITS</p>
+                        </div>
+                        <div class="time-unit">
+                            <p class="city">INDONESIA (WIB)</p>
+                            <p class="time">16:30:42</p>
+                            <p class="state">ACTIVE HEADUNITS</p>
+                        </div>
+                        <div class="time-unit">
+                            <p class="city">BRAZIL (BRT)</p>
+                            <p class="time">08:39:40</p>
+                            <p class="state">ACTIVE HEADUNITS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

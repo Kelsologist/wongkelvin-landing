@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wong Kelvin - AION-KW Cyber Guardian Portal</title>
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght=1,600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Base dark background */
+            /* Background configuration based on the provided technical blueprint mockup */
+            background-image: url('public/images/main_background.jpg'); /* This image should be the blueprint grid pattern */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #f8fafc;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Glassmorphism Card Style - accurately matching image properties */
+        .glass-card {
+            background: rgba(20, 26, 36, 0.45); /* Dark translucent background */
+            backdrop-filter: blur(35px); /* Strong glass blur effect */
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Minimal border for refracting edge */
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5); /* Outer shadow for depth */
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.3); /* Subtle border glow on hover */
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15); /* Soft outer glow on hover */
+            transform: translateY(-5px); /* Interactive lift */
+        }
+
+        /* Glowing Neon Overlays - Precise settings matching the image examples */
+        .glow-cyan {
+            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.7)); /* Intense realistic neon refraction */
+        }
+
+        .glow-fuchsia {
+            filter: drop-shadow(0 0 20px rgba(217, 70, 239, 0.7)); /* Intense realistic neon refraction */
+        }
+
+        /* Logic Engine related classes from the HTML provided */
+        /* Clock Hands Rotator */
+        .clock-hand {
+            transform-origin: bottom center;
+            transition: transform 0.5s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+        }
+
+        /* Jukebox Spinning Vinyl */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .vinyl-spin {
+            animation: spin 4s linear infinite;
+        }
+
+        /* Floating Base-Carousel for Clock Tower */
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        
+        .carousel-node {
+            position: absolute;
+            animation: orbit 20s linear infinite;
+        }
+
+        /* Offset each carousel dial along the orbit path */
+        .node-1 { animation-delay: 0s; }
+        .node-2 { animation-delay: -6.6s; }
+        .node-3 { animation-delay: -13.3s; }
+    </style>
+</head>
+<body class="antialiased selection:bg-yellow-500 selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- Top Accent Line - Preserved from HTML -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-emerald-500"></div>
+
+    <!-- Main Workspace Container - accurately matching the 4-column layout and text formatting -->
+    <main class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full flex flex-col justify-center">
+        
+        <!-- Recreating the exact 4-column grid layout of design-03.jpg -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-stretch">
+
+            <!-- COLUMN 1: SCHEMATIC NODE -->
+            <div class="glass-card p-6 flex flex-col items-center justify-center relative overflow-hidden">
+                <img src="public/images/schematic_node.png" alt="Logical Schematic Node" class="w-full h-auto mb-4 glow-cyan" />
+                <h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase">Logical Topology</h3>
+            </div>
+
+            <!-- COLUMN 2: THE AION-KW HOLOGRAPHIC CHRONOS TOWER -->
+            <div class="glass-card p-10 flex flex-col justify-between items-center relative overflow-hidden border-t-2 border-t-cyan-500/30">
+                <img src="public/images/chronos_tower.png" alt="Chronos Tower" class="w-48 h-auto my-auto object-contain" />
+                <div id="sgt-digital" class="text-3xl font-mono text-white mt-4 font-bold">00:00:00</div>
+                <h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase mt-2">Holographic Chronos Tower</h3>
+            </div>
+
+            <!-- COLUMN 3: OPERATIONAL INTERFACE MODULE -->
+            <div class="glass-card p-8 flex flex-col justify-between items-center relative overflow-hidden border-t-2 border-t-fuchsia-500/30">
+                <img src="public/images/interface_module.png" alt="Operational Interface Module" class="w-full h-auto my-auto glow-fuchsia" />
+                <h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase mt-4">Control Suite</h3>
+            </div>
+
+            <!-- COLUMN 4: THE TRANSPARENT ID / PROFILE CARD -->
+            <div class="glass-card p-8 flex flex-col justify-between items-center relative overflow-hidden border-t-2 border-t-emerald-500/30">
+                <div class="absolute top-4 text-xs font-bold text-emerald-400 tracking-widest uppercase">Verified Identity</div>
+                <div class="relative w-32 h-32 rounded-full bg-slate-950 p-1.5 overflow-hidden border-2 border-slate-800 my-auto">
+                    <img src="assets/kelvin_avatar.png" alt="Wong Kelvin" class="w-full h-full object-cover rounded-full" />
+                </div>
+                <div class="w-full text-center space-y-2 mt-4">
+                    <h3 class="text-2xl font-black text-white">Kelvin Wong</h3>
+                    <p class="text-xs text-slate-400">IMI Corporation, K-Works</p>
+                    <button onclick="toggleProfileModal()" class="w-full bg-slate-900 border border-slate-800 text-[10px] font-bold py-2 rounded-lg transition hover:border-emerald-500/30 uppercase tracking-widest text-white">View Details</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Modal - accurate styling matching the visual results -->
+    <div id="profile-modal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
+        <div class="glass-card max-w-lg w-full p-10 border border-emerald-500/30 relative space-y-6">
+            <button onclick="toggleProfileModal()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-300 text-3xl">×</button>
+            <div class="flex items-center space-x-6 border-b border-slate-800/80 pb-6">
+                <img src="assets/kelvin_avatar.png" alt="Kelvin Wong" class="w-20 h-20 rounded-full border-2 border-slate-700 p-1 bg-slate-950" />
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Kelvin Wong</h3>
+                    <p class="text-sm text-slate-400">K-Works Architect, IMI Corp</p>
+                </div>
+            </div>
+            <!-- Modal actions for vCard and certs -->
+            <div class="flex space-x-4 pt-4">
+                <a href="assets/kelvin_contact.vcf" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white text-center py-2 rounded-lg font-bold text-xs uppercase tracking-widest">vCard</a>
+                <a href="assets/certs/root.crt" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white text-center py-2 rounded-lg font-bold text-xs uppercase tracking-widest">Root CA</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Branding -->
+    <footer class="text-center text-slate-600 text-[10px] py-10 border-t border-slate-950/40 bg-black/20 font-mono tracking-widest uppercase">
+        AION-K-Workz • wongkelvin.com © 2026
+    </footer>
+
+    <!-- Logic Engine -->
+    <script>
+        // Update digital time for column 2
+        function updateTimeZones() {
+            const now = new Date();
+            const timeOptions = { timeZone: 'Asia/Singapore', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const timeString = now.toLocaleTimeString('en-GB', timeOptions);
+            document.getElementById('sgt-digital').innerText = timeString;
+        }
+
+        // Toggle visibility of the profile modal
+        function toggleProfileModal() {
+            const modal = document.getElementById('profile-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Initial update and periodic refresh
+        updateTimeZones();
+        setInterval(updateTimeZones, 1000);
+    </script>
+</body>
+</html>

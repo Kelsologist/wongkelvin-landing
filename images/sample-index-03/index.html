@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova // Ethereal Spatial Workspace</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Font Import -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Link to the custom Synced design tokens stylesheet -->
+  <link rel="stylesheet" href="glassmorphic-landing-tokens.css">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Mirroring synced glassmorphism classes locally for fast loading */
+    .bg-gradient-canvas {
+      background: radial-gradient(circle at top right, #0F121D 0%, #030406 100%);
+      position: relative;
+    }
+    
+    .floating-sphere-indigo {
+      position: absolute;
+      top: 10%; left: 15%;
+      width: 500px; height: 500px;
+      background: #4F46E5;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .floating-sphere-pink {
+      position: absolute;
+      bottom: 15%; right: 10%;
+      width: 600px; height: 600px;
+      background: #EC4899;
+      border-radius: 50%;
+      filter: blur(160px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .glass-nav {
+      background: rgba(10, 11, 15, 0.4);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.08),
+        0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-gradient-canvas text-slate-100 min-h-screen overflow-x-hidden">
+
+  <!-- Ambient Light Fields Underlay -->
+  <div class="floating-sphere-indigo"></div>
+  <div class="floating-sphere-pink"></div>
+
+  <!-- ─── NAV BAR (Selectively Blurred Contextual Overlay) ────────────────── -->
+  <nav class="glass-nav fixed top-0 w-full z-50 px-6 py-4 md:px-12 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <span class="h-6 w-6 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 shadow-[0_0_15px_rgba(79,70,229,0.5)]"></span>
+      <span class="font-extrabold tracking-tight text-lg uppercase">NOVA</span>
+    </div>
+    
+    <!-- Navigation Options (Calm & Minimal) -->
+    <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-400">
+      <a href="#" class="hover:text-white transition-colors">Platform</a>
+      <a href="#" class="hover:text-white transition-colors">Features</a>
+      <a href="#" class="hover:text-white transition-colors">Pricing</a>
+      <a href="#" class="hover:text-white transition-colors">Sustain</a>
+    </div>
+
+    <button class="px-5 py-2 text-xs font-bold uppercase rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-indigo-500/20 transition-all">
+      Launch Console
+    </button>
+  </nav>
+
+  <!-- ─── HERO SECTION (Premium Brand Focus) ────────────────────────────── -->
+  <main class="relative z-10 pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col items-center text-center">
+    
+    <!-- Interactive Tag (Small chip) -->
+    <div class="glass-card px-4 py-1.5 rounded-full text-xs font-bold tracking-widest text-indigo-400 uppercase mb-6">
+      ✨ Introducing Space OS
+    </div>
+
+    <!-- Widescreen Headline -->
+    <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight leading-none mb-6">
+      The Spatial Platform <br>
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-pink-400 to-cyan-400">
+        For Infinite Imagination
+      </span>
+    </h1>
+
+    <!-- Readability Guard: Text block constrained inside a dark overlay scrim -->
+    <p class="text-slate-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+      A spatial web workspace built entirely out of light and layer-based depth. Organize complex metrics, active timelines, and cloud databases with crystal-clear visual separation.
+    </p>
+
+    <!-- Main call to action (Highly visible solid foreground action) -->
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
+      <button class="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 font-bold shadow-xl hover:shadow-pink-500/10 transition-all transform hover:-translate-y-0.5">
+        Start Free Trial
+      </button>
+      <button class="glass-card px-8 py-4 rounded-xl font-bold hover:bg-white/5 transition-colors">
+        Watch Architecture Video
+      </button>
+    </div>
+
+    <!-- ─── FEATURE SECTION (Three-panel card grid) ────────────────────── -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-12">
+      
+      <!-- Panel 1 -->
+      <div class="glass-card p-8 rounded-2xl flex flex-col justify-between h-[320px] text-left">
+        <div>
+          <div class="h-10 w-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 font-mono font-bold">01</div>
+          <h3 class="text-xl font-bold mb-2">Deep Refraction</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Utilizes advanced WebGL and GPU shading tokens to simulate physical material refraction on standard web screens.
+          </p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 tracking-wider uppercase font-mono">Shader Level: WebGL 2.0</span>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="glass-card p-8 rounded-2xl flex flex-col justify-between h-[320px] text-left">
+        <div>
+          <div class="h-10 w-10 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-6 font-mono font-bold">02</div>
+          <h3 class="text-xl font-bold mb-2">Adaptive Opacity</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Dynamically shifts and tones transparent layers based on background elements to sustain readability at all times.
+          </p>
+        </div>
+        <span class="text-xs font-bold text-pink-400 tracking-wider uppercase font-mono">Contrast Guard: WCAG compliant</span>
+      </div>
+
+      <!-- Panel 3 -->
+      <div class="glass-card p-8 rounded-2xl flex flex-col justify-between h-[320px] text-left">
+        <div>
+          <div class="h-10 w-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 font-mono font-bold">03</div>
+          <h3 class="text-xl font-bold mb-2">Accessible Fallback</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Honors system preferences instantly by swapping translucency for high-contrast solid containers on older devices.
+          </p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 tracking-wider uppercase font-mono">A11y Support: Native media query</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ─── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer class="relative z-10 border-t border-white/5 py-8 text-center text-xs text-slate-500 px-6 max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+    <div class="flex items-center space-x-2">
+      <span class="h-3 w-3 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500"></span>
+      <span class="font-bold tracking-tight uppercase">NOVA SPATIAL</span>
+    </div>
+    <div>
+      © 2026 NOVA APPS INC. ALL RIGHTS RESERVED. DESIGN SYSTEM BUILT WITH CURSOR.
+    </div>
+  </footer>
+
+</body>
+</html>
