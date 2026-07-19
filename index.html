@@ -108,12 +108,79 @@
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       z-index: 10;
     }
+    .wk-glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 36%, rgba(255, 255, 255, 0) 68%),
+        radial-gradient(circle at 85% 15%, rgba(0, 191, 255, 0.08) 0%, rgba(0, 191, 255, 0) 45%);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+    .wk-glass-card::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+    .wk-glass-card > * {
+      position: relative;
+      z-index: 1;
+    }
     .wk-glass-card:hover {
       border-color: rgba(211, 47, 47, 0.3);
       transform: translateY(-2px);
       box-shadow: 
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), 
         0 25px 50px -10px rgba(211, 47, 47, 0.15);
+    }
+
+    .wk-logo-kw-header {
+      height: 30px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.15));
+    }
+    .wk-logo-kworks {
+      height: 24px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.82;
+      filter: saturate(1.08) drop-shadow(0 0 14px rgba(211, 47, 47, 0.2));
+    }
+    .wk-logo-pill {
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.05) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 10px 30px rgba(0, 0, 0, 0.24);
+    }
+    .wk-logo-profile {
+      height: 48px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.93;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+    }
+    @media (min-width: 768px) {
+      .wk-logo-kw-header { height: 36px; }
+      .wk-logo-kworks { height: 28px; max-width: 140px; }
+      .wk-logo-profile { height: 56px; }
     }
 
     /* ─── SHARP CORNER BRACKETS (┌ ┐ & └ ┘) ─── */
@@ -185,23 +252,25 @@
   <div class="ambient-glow-cyan"></div>
 
   <!-- ─── HEADER (Logo branding + identity verification) ────────────────────────── -->
-  <nav class="relative z-10 max-w-7xl mx-auto w-full flex justify-between items-center border-b border-white/5 pb-6 mb-8">
-    <div class="flex items-center space-x-4">
+  <nav class="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:justify-between sm:items-center items-start gap-4 border-b border-white/5 pb-6 mb-8">
+    <div class="flex items-center space-x-4 w-full sm:w-auto">
       <!-- KW Logo -->
-      <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="h-7 md:h-8 w-auto opacity-90 hover:opacity-100 transition-opacity cursor-pointer" title="Wong Kelvin">
+      <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="wk-logo-kw-header hover:opacity-100 transition-opacity cursor-pointer" title="Wong Kelvin">
       
       <!-- Brand text -->
       <div class="border-l border-white/10 pl-4">
-        <span class="font-extrabold tracking-tight text-lg font-mono block">
+        <span class="font-extrabold tracking-tight text-base sm:text-lg font-mono block">
           <span class="text-[#D32F2F]">W</span>ONG <span class="text-[#D32F2F]">K</span>ELVIN // GATEWAY
         </span>
         <span class="text-[9px] font-mono text-slate-500 tracking-widest">AI SYSTEMS DESIGNER</span>
       </div>
     </div>
     
-    <div class="flex items-center space-x-6">
+    <div class="flex items-center space-x-4 sm:space-x-6 self-end sm:self-auto">
       <!-- k-works logo -->
-      <img src="./k-works.png" alt="K-Works" class="h-6 md:h-7 w-auto opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="K-Works Platform">
+      <div class="wk-logo-pill">
+        <img src="./k-works.png" alt="K-Works" class="wk-logo-kworks hover:opacity-100 transition-opacity cursor-pointer" title="K-Works Platform">
+      </div>
       
       <!-- Status indicator -->
       <div class="font-mono text-xs text-slate-400 uppercase tracking-wider hidden sm:block">
@@ -336,7 +405,7 @@
       <div class="wk-glass-card p-6 flex flex-col justify-between h-full border-white/10 relative overflow-hidden">
         <!-- KW Logo in card header -->
         <div class="flex flex-col items-center space-y-4">
-          <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="h-12 w-auto opacity-90">
+          <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="wk-logo-profile">
           
           <!-- Name with brand colors -->
           <h3 class="text-xl font-black tracking-tight uppercase text-center">
