@@ -152,6 +152,33 @@
     .spectrum-bar-4 { animation: bounceSpectrum 1.0s infinite ease-in-out alternate 0.1s; }
     .spectrum-bar-5 { animation: bounceSpectrum 1.1s infinite ease-in-out alternate 0.3s; }
 
+    @keyframes keySpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .crypto-key-orbit {
+      position: absolute;
+      inset: -12px;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(0, 191, 255, 0.18) 0%, rgba(0, 191, 255, 0.05) 35%, rgba(0, 191, 255, 0) 72%);
+      filter: blur(10px);
+      animation: keySpin 24s linear infinite;
+      pointer-events: none;
+    }
+
+    .wk-logo-profile {
+      height: 44px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.95;
+      filter: hue-rotate(150deg) saturate(1.6) drop-shadow(0 0 12px rgba(0, 191, 255, 0.45));
+      animation: keySpin 18s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
     /* ─── MODAL OVERLAYS ─── */
     .wk-modal-overlay {
       background: rgba(8, 9, 11, 0.85);
@@ -336,7 +363,10 @@
       <div class="wk-glass-card p-6 flex flex-col justify-between h-full border-white/10 relative overflow-hidden">
         <!-- KW Logo in card header -->
         <div class="flex flex-col items-center space-y-4">
-          <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="h-12 w-auto opacity-90">
+          <div class="relative flex items-center justify-center">
+            <span class="crypto-key-orbit"></span>
+            <img src="./KW_logo_Kelvin-04.png" alt="KW Logo" class="wk-logo-profile relative z-10">
+          </div>
           
           <!-- Name with brand colors -->
           <h3 class="text-xl font-black tracking-tight uppercase text-center">
