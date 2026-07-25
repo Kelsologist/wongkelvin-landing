@@ -1,9 +1,13 @@
 BEGIN:VCARD
 VERSION:3.0
 N:Wong;Kelvin;;;
-FN:Kelvin Wong
-EMAIL;TYPE=INTERNET,WORK:kelvin.wong@imicorp.com.sg
-EMAIL;TYPE=INTERNET,HOME:kelvin@wongkelvin.com
-URL;TYPE=WORK:https://www.imicorp.com.sg
-URL;TYPE=HOME:https://wongkelvin.com
+FN:Wong Kelvin
+ORG:K-Works;AION Security Cluster
+TITLE:AI Systems Designer & Cryptographer
+EMAIL;type=INTERNET;type=WORK;type=pref:kelvin@wongkelvin.com
+TEL;type=CELL;type=VOICE;type=pref:+6588419988
+URL;type=pref:https://wongkelvin.com
+ADR;type=WORK;type=pref:;;Singapore;Singapore;;;SG
+NOTE:AION-KW Cryptographically Verified Signature Identity.
+REV:2026-06-30T12:00:00Z
 END:VCARD
