@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//macOS 26.5.2//EN
+N:Wong;Kelvin;;;
+FN:Kelvin Wong
+ORG:IMI Corporation;
+EMAIL;type=INTERNET;type=WORK;type=pref:kelvn.wong@imicorp.com.sg
+item1.EMAIL;type=INTERNET:kelvin@wongkelvin.com
+item1.X-ABLabel:PERSONAL
+TEL;type=pref:+6588419988
+item2.URL;type=pref:https://wongkelvin.com
+item2.X-ABLabel:_$!<HomePage>!$_
+END:VCARD
