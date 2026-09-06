@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "postcss input.css -o tailwind.css --watch",
     "build": "postcss input.css -o tailwind.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
