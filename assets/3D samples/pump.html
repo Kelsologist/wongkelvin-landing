@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rexroth A4VSO Pump - Interactive 3D</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #18191c;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #ui {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      color: #f0f0f0;
+      background: rgba(0, 0, 0, 0.65);
+      padding: 12px 18px;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+    #ui h1 {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    #ui p {
+      margin: 0;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ui">
+    <h1>Bosch Rexroth A4VSO Pump</h1>
+    <p>Click & drag to rotate | Scroll to zoom</p>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // 1. Scene Setup
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x18191c);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(22, 14, 22);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.5;
+
+    // 2. Lighting Setup (Studio Spec)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    keyLight.position.set(20, 30, 20);
+    keyLight.castShadow = true;
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0x7090ff, 0.8);
+    fillLight.position.set(-20, -10, -20);
+    scene.add(fillLight);
+
+    // 3. Materials
+    const castIronMat = new THREE.MeshStandardMaterial({ color: 0x2e3238, metalness: 0.5, roughness: 0.4 });
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0xd0d5dd, metalness: 0.9, roughness: 0.2 });
+    const brassMat = new THREE.MeshStandardMaterial({ color: 0xc5a059, metalness: 0.8, roughness: 0.3 });
+    const darkPlateMat = new THREE.MeshStandardMaterial({ color: 0x1d2024, metalness: 0.3, roughness: 0.6 });
+
+    // 4. Build A4VSO Pump Assembly
+    const pumpGroup = new THREE.Group();
+
+    // Main Cylindrical Housing
+    const bodyGeo = new THREE.CylinderGeometry(4.2, 4.8, 9.5, 24);
+    const mainBody = new THREE.Mesh(bodyGeo, castIronMat);
+    mainBody.rotation.z = Math.PI / 2;
+    pumpGroup.add(mainBody);
+
+    // Front Mounting Flange (SAE / ISO)
+    const flangeGeo = new THREE.CylinderGeometry(6.2, 6.2, 1.2, 24);
+    const flange = new THREE.Mesh(flangeGeo, castIronMat);
+    flange.rotation.z = Math.PI / 2;
+    flange.position.x = 5.35;
+    pumpGroup.add(flange);
+
+    // Mounting Bolt Details
+    for (let i = 0; i < 4; i++) {
+      const angle = (i * Math.PI) / 2;
+      const bolt = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 1.4, 12), steelMat);
+      bolt.rotation.z = Math.PI / 2;
+      bolt.position.set(5.35, Math.sin(angle) * 5.1, Math.cos(angle) * 5.1);
+      pumpGroup.add(bolt);
+    }
+
+    // Drive Shaft (Splined/Keyed)
+    const shaftGeo = new THREE.CylinderGeometry(1.4, 1.4, 5.5, 32);
+    const shaft = new THREE.Mesh(shaftGeo, steelMat);
+    shaft.rotation.z = Math.PI / 2;
+    shaft.position.x = 7.5;
+    pumpGroup.add(shaft);
+
+    const keyway = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.3, 0.3), steelMat);
+    keyway.position.set(8.0, 1.4, 0);
+    pumpGroup.add(keyway);
+
+    // Rear Valve Block / Port Plate
+    const rearBlockGeo = new THREE.BoxGeometry(2.8, 8.8, 7.8);
+    const rearBlock = new THREE.Mesh(rearBlockGeo, darkPlateMat);
+    rearBlock.position.x = -5.8;
+    pumpGroup.add(rearBlock);
+
+    // High Pressure Port Connections
+    const port1 = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 1.2, 16), castIronMat);
+    port1.position.set(-5.8, 2.6, 4.0);
+    port1.rotation.x = Math.PI / 2;
+    pumpGroup.add(port1);
+
+    const port2 = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 1.2, 16), castIronMat);
+    port2.position.set(-5.8, -2.6, 4.0);
+    port2.rotation.x = Math.PI / 2;
+    pumpGroup.add(port2);
+
+    // Top Control Assembly (Displacement / Swashplate Controller)
+    const ctrlGeo = new THREE.BoxGeometry(5.5, 3.2, 3.8);
+    const controller = new THREE.Mesh(ctrlGeo, castIronMat);
+    controller.position.set(-0.5, 4.2, 0);
+    pumpGroup.add(controller);
+
+    // Control Solenoids / Valve Plugs
+    const solenoid = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 2.8, 16), steelMat);
+    solenoid.rotation.x = Math.PI / 2;
+    solenoid.position.set(1.0, 4.2, 2.8);
+    pumpGroup.add(solenoid);
+
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.4, 16), brassMat);
+    cap.rotation.x = Math.PI / 2;
+    cap.position.set(1.0, 4.2, 4.3);
+    pumpGroup.add(cap);
+
+    scene.add(pumpGroup);
+
+    // 5. Responsiveness & Animation
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

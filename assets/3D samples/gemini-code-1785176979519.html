@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden; background: #0e1622;">
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Placeholder geometry representing the pump body
+    const geometry = new THREE.CylinderGeometry(1.5, 1.5, 3, 32);
+    const material = new THREE.MeshPhongMaterial({ color: 0x2196f3, wireframe: true });
+    const pump = new THREE.Mesh(geometry, material);
+    scene.add(pump);
+
+    // Lighting
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 5, 5).normalize();
+    scene.add(light);
+
+    camera.position.z = 5;
+
+    // Continuous rotation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      pump.rotation.y += 0.01; // Continuous rotation along Y-axis
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

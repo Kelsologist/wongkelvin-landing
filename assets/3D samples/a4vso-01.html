@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REXROTH A4VSO (SIZE 40) // 3D DIGITAL TWIN HUD</title>
+  
+  <!-- Three.js Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --neon-cyan: #00f0ff;
+      --neon-amber: #ff9d00;
+      --neon-red: #ff2a4b;
+      --neon-lime: #39ff14;
+      --metal-dark: #080c14;
+      --metal-light: #1e2838;
+      --glass-bg: rgba(10, 15, 25, 0.75);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: #030407;
+      /* Holographic Blueprint Background Grid */
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.12), transparent 70%),
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 25px 25px, 25px 25px;
+      color: #e2e8f0;
+      font-family: 'Consolas', 'Segoe UI', monospace;
+      margin: 0;
+      padding: 30px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+    }
+
+    /* --- DASHBOARD HEADER --- */
+    .dashboard-header {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid var(--neon-cyan);
+      padding-bottom: 12px;
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .main-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 12px var(--neon-cyan);
+      margin: 0;
+    }
+
+    .sub-title {
+      color: var(--neon-cyan);
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+    }
+
+    .sys-status {
+      color: var(--neon-lime);
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-shadow: 0 0 8px var(--neon-lime);
+    }
+
+    /* --- SKEUOMORPHIC 3D METALLIC CARD FRAME --- */
+    .hud-card-3d {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(145deg, var(--metal-light), var(--metal-dark));
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid #334155;
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.95),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.25),
+        inset -2px -2px 6px rgba(0, 0, 0, 0.9);
+      
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Fiber-Optic Edge Channel */
+    .hud-card-3d::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-amber)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      filter: drop-shadow(0 0 8px var(--neon-cyan));
+      pointer-events: none;
+      transform: translateZ(10px);
+    }
+
+    /* --- RECESSED FROSTED GLASS SLAB --- */
+    .glass-slab {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 14px;
+      padding: 22px;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+      transform: translateZ(25px);
+      transform-style: preserve-3d;
+    }
+
+    .glare-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      mix-blend-mode: overlay;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+      transform: translateZ(40px);
+    }
+
+    .module-title {
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .module-id {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    /* 3D WebGL Viewport Frame */
+    .webgl-viewport {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      margin: 10px 0;
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(0,240,255,0.05) 0%, rgba(0,0,0,0.95) 85%);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      box-shadow: inset 0 0 20px #000;
+      transform: translateZ(50px);
+      overflow: hidden;
+    }
+
+    #webglCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Overlay Controls on Viewport */
+    .viewport-overlay {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    /* Telemetry Data Grid (Sourced from Technical Specs) */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+      transform: translateZ(35px);
+    }
+
+    .spec-card {
+      background: #050810;
+      border-radius: 8px;
+      padding: 10px 12px;
+      border: 1px solid #1a2333;
+      box-shadow: inset 0 2px 5px #000;
+    }
+
+    .spec-label { font-size: 0.65rem; color: #64748b; letter-spacing: 1px; }
+    .spec-val { font-size: 1rem; font-weight: bold; color: #fff; margin-top: 2px; }
+    .accent-cyan { color: var(--neon-cyan); text-shadow: 0 0 6px var(--neon-cyan); }
+    .accent-amber { color: var(--neon-amber); text-shadow: 0 0 6px var(--neon-amber); }
+    .accent-lime { color: var(--neon-lime); text-shadow: 0 0 6px var(--neon-lime); }
+
+    @media (max-width: 768px) {
+      .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DASHBOARD TOP HEADER -->
+  <div class="dashboard-header">
+    <div>
+      <h1 class="main-title">REXROTH A4VSO // HYDRAULIC DIGITAL TWIN</h1>
+      <div class="sub-title">VARIABLE DISPLACEMENT AXIAL PISTON PUMP (SIZE 40 / SERIES 1)</div>
+    </div>
+    <div class="sys-status">● SYSTEM ACTIVE</div>
+  </div>
+
+  <!-- 3D INTERACTIVE HUD CARD -->
+  <div class="hud-card-3d" id="hudCard">
+    <div class="glass-slab">
+      <div class="glare-overlay" id="glare"></div>
+      
+      <!-- Card Header -->
+      <div class="card-header">
+        <span class="module-title">SWASHPLATE KINEMATICS // 3D CUTAWAY</span>
+        <span class="module-id">[A4VSO-40-DRG]</span>
+      </div>
+
+      <!-- WebGL Viewport -->
+      <div class="webgl-viewport">
+        <div class="viewport-overlay">
+          <div><span style="color: #00f0ff;">■</span> INLET S (Low Press)</div>
+          <div><span style="color: #ff9d00;">■</span> OUTLET B (High Press: 350 bar)</div>
+        </div>
+        <canvas id="webglCanvas"></canvas>
+      </div>
+
+      <!-- Telemetry Spec Grid (Data from Rexroth A4VSO Sheet) -->
+      <div class="telemetry-grid">
+        <div class="spec-card">
+          <div class="spec-label">DISPLACEMENT (Vg max)</div>
+          <div class="spec-val accent-cyan">40 cm³</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">NOMINAL SPEED (no max)</div>
+          <div class="spec-val accent-lime">2600 RPM</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">MAX FLOW (qvo max)</div>
+          <div class="spec-val accent-cyan">104 L/min</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">MAX PRESSURE (p max)</div>
+          <div class="spec-val accent-amber">350 BAR</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">POWER AT 2600 RPM</div>
+          <div class="spec-val">61 kW</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">MAX TORQUE (350 BAR)</div>
+          <div class="spec-val">223 Nm</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">FLANGE TYPE</div>
+          <div class="spec-val" style="font-size: 0.85rem;">ISO 3019-2 (4-Hole)</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-label">DRIVE SHAFT</div>
+          <div class="spec-val" style="font-size: 0.85rem;">SPLINED / PARALLEL</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3D WEBGL ENGINE & INTERACTIVE MOUSE PARALLAX SCRIPT -->
+  <script>
+    /* ====================================================
+       1. THREE.JS REXROTH A4VSO PUMP 3D MODEL
+       ==================================================== */
+    const canvas = document.getElementById('webglCanvas');
+    const scene = new THREE.Scene();
+    
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.set(0, 2.5, 7.5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    // Ambient & Directional Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    
+    const cyanLight = new THREE.PointLight(0x00f0ff, 4, 15);
+    cyanLight.position.set(-4, 4, 4);
+    scene.add(cyanLight);
+
+    const amberLight = new THREE.PointLight(0xff9d00, 4, 15);
+    amberLight.position.set(4, -2, 4);
+    scene.add(amberLight);
+
+    // Root Group for the Pump
+    const pumpGroup = new THREE.Group();
+    scene.add(pumpGroup);
+
+    // --- A. MAIN HOUSING / CASING (Translucent Cutaway) ---
+    const housingGeo = new THREE.CylinderGeometry(1.5, 1.5, 3.8, 24, 1, true);
+    const housingMat = new THREE.MeshPhysicalMaterial({
+      color: 0x1e3a5f,
+      metalness: 0.6,
+      roughness: 0.2,
+      transmission: 0.75, // Translucent cutaway look
+      opacity: 0.85,
+      transparent: true,
+      side: THREE.DoubleSide
+    });
+    const housing = new THREE.Mesh(housingGeo, housingMat);
+    housing.rotation.z = Math.PI / 2;
+    pumpGroup.add(housing);
+
+    // Front Flange (4-Hole ISO 3019-2)
+    const flangeGeo = new THREE.CylinderGeometry(2.1, 2.1, 0.3, 24);
+    const flangeMat = new THREE.MeshStandardMaterial({ color: 0x2a3b50, metalness: 0.8, roughness: 0.3 });
+    const flange = new THREE.Mesh(flangeGeo, flangeMat);
+    flange.rotation.z = Math.PI / 2;
+    flange.position.x = -1.9;
+    pumpGroup.add(flange);
+
+    // --- B. DRIVE SHAFT (Rotates) ---
+    const shaftGroup = new THREE.Group();
+    const shaftGeo = new THREE.CylinderGeometry(0.35, 0.35, 4.6, 20);
+    const shaftMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, metalness: 0.9, roughness: 0.1 });
+    const shaft = new THREE.Mesh(shaftGeo, shaftMat);
+    shaft.rotation.z = Math.PI / 2;
+    shaftGroup.add(shaft);
+
+    // Spline ridges on the front shaft
+    for (let i = 0; i < 8; i++) {
+      const splineGeo = new THREE.BoxGeometry(1.0, 0.05, 0.05);
+      const spline = new THREE.Mesh(splineGeo, shaftMat);
+      spline.position.x = -2.2;
+      spline.rotation.x = (i / 8) * Math.PI * 2;
+      shaftGroup.add(spline);
+    }
+    pumpGroup.add(shaftGroup);
+
+    // --- C. CYLINDER BARREL & PISTONS ASSEMBLY ---
+    const barrelGroup = new THREE.Group();
+    const barrelGeo = new THREE.CylinderGeometry(1.2, 1.2, 2.0, 18);
+    const barrelMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8, roughness: 0.3 });
+    const barrel = new THREE.Mesh(barrelGeo, barrelMat);
+    barrel.rotation.z = Math.PI / 2;
+    barrelGroup.add(barrel);
+
+    // Create 7 Pistons inside the Cylinder Barrel
+    const numPistons = 7;
+    const pistonRadius = 0.75;
+    const pistons = [];
+    const swashAngle = 0.28; // ~16 degree swashplate tilt angle
+
+    for (let i = 0; i < numPistons; i++) {
+      const angle = (i / numPistons) * Math.PI * 2;
+      
+      const pistonGeo = new THREE.CylinderGeometry(0.16, 0.16, 1.2, 16);
+      const pistonMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.95, roughness: 0.05 });
+      const piston = new THREE.Mesh(pistonGeo, pistonMat);
+      piston.rotation.z = Math.PI / 2;
+
+      // Slipper Slipper Foot Assembly at the end of each piston
+      const slipperGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.1, 16);
+      const slipperMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8, roughness: 0.2 });
+      const slipper = new THREE.Mesh(slipperGeo, slipperMat);
+      slipper.rotation.z = Math.PI / 2;
+      slipper.position.x = 0.65;
+
+      const singlePistonGroup = new THREE.Group();
+      singlePistonGroup.add(piston);
+      singlePistonGroup.add(slipper);
+
+      barrelGroup.add(singlePistonGroup);
+
+      pistons.push({
+        group: singlePistonGroup,
+        baseAngle: angle
+      });
+    }
+    pumpGroup.add(barrelGroup);
+
+    // --- D. SWASHPLATE (Tilted Control Plate) ---
+    const swashGroup = new THREE.Group();
+    const swashGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.25, 24);
+    const swashMat = new THREE.MeshStandardMaterial({ color: 0x00f0ff, metalness: 0.7, roughness: 0.2, emissive: 0x003344 });
+    const swashplate = new THREE.Mesh(swashGeo, swashMat);
+    swashplate.rotation.z = Math.PI / 2;
+    swashGroup.add(swashplate);
+
+    swashGroup.position.set(1.1, 0, 0);
+    swashGroup.rotation.z = swashAngle; // Angle controls displacement
+    pumpGroup.add(swashGroup);
+
+    // --- E. FLUID FLOW PIPES (Inlet S & Outlet B) ---
+    // Inlet S Pipe (Cyan)
+    const inletCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, -2.0, 0.5),
+      new THREE.Vector3(0, -1.2, 0.5),
+      new THREE.Vector3(-0.8, -0.6, 0.5)
+    ]);
+    const inletPipeGeo = new THREE.TubeGeometry(inletCurve, 20, 0.15, 8, false);
+    const inletPipeMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.8 });
+    const inletPipe = new THREE.Mesh(inletPipeGeo, inletPipeMat);
+    pumpGroup.add(inletPipe);
+
+    // Outlet B Pipe (Amber/High Pressure)
+    const outletCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.8, 0.6, 0.5),
+      new THREE.Vector3(0, 1.2, 0.5),
+      new THREE.Vector3(0, 2.0, 0.5)
+    ]);
+    const outletPipeGeo = new THREE.TubeGeometry(outletCurve, 20, 0.15, 8, false);
+    const outletPipeMat = new THREE.MeshBasicMaterial({ color: 0xff9d00, transparent: true, opacity: 0.8 });
+    const outletPipe = new THREE.Mesh(outletPipeGeo, outletPipeMat);
+    pumpGroup.add(outletPipe);
+
+    // --- F. RENDER ANIMATION LOOP WITH PISTON RECIPROCATION ---
+    let rotationAngle = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      rotationAngle += 0.025; // Rotation speed
+
+      // Rotate shaft and cylinder barrel
+      shaftGroup.rotation.x = rotationAngle;
+      barrelGroup.rotation.x = rotationAngle;
+
+      // Calculate piston stroke positions along the angled swashplate
+      pistons.forEach((p) => {
+        const currentAngle = p.baseAngle + rotationAngle;
+        const y = Math.sin(currentAngle) * pistonRadius;
+        const z = Math.cos(currentAngle) * pistonRadius;
+        
+        // Reciprocating axial displacement based on swashplate angle
+        const xOffset = Math.sin(currentAngle) * Math.sin(swashAngle) * pistonRadius;
+
+        p.group.position.set(xOffset, y, z);
+      });
+
+      // Slowly rotate entire pump assembly for full 3D inspection
+      pumpGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.35;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    /* ====================================================
+       2. MOUSE 3D PARALLAX TILT & GLARE EFFECT
+       ==================================================== */
+    const card = document.getElementById('hudCard');
+    const glare = document.getElementById('glare');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      glare.style.opacity = '1';
+      glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.2), transparent 50%)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      glare.style.opacity = '0';
+    });
+
+    // Window Resize Handling
+    window.addEventListener('resize', () => {
+      const width = canvas.parentElement.clientWidth;
+      const height = canvas.parentElement.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+  </script>
+</body>
+</html>
