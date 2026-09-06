@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "postcss input.css -o tailwind.css",
+    "build": "postcss wongkelvin-performance-fallback.css -o tailwind.css",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  }
   "keywords": [],
   "author": "",
   "license": "ISC",
